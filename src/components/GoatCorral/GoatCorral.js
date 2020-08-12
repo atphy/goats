@@ -1,22 +1,30 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Goat from '../Goat/Goat';
+import goatShape from '../../helpers/props/goatShape';
 
 import './GoatCorral.scss';
 
 class GoatCorral extends React.Component {
-  render() {
-    const { goats } = this.props;
+static propTypes = {
+  goats: PropTypes.arrayOf(goatShape.goatShape),
+  takeAGoat: PropTypes.func,
+  freeAGoat: PropTypes.func,
+}
 
-    const goatCards = goats.map((goat) => (
-    <Goat key={goat.id} goat={goat}/>
-    ));
+render() {
+  const { goats, takeAGoat, freeAGoat } = this.props;
 
-    return (
+  const goatCards = goats.map((goat) => (
+    <Goat key={goat.id} goat={goat} takeAGoat={takeAGoat} freeAGoat={freeAGoat} />
+  ));
+
+  return (
         <div className="goat-corral">
           { goatCards }
         </div>
-    );
-  }
+  );
+}
 }
 
 export default GoatCorral;
